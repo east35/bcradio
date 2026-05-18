@@ -18,7 +18,7 @@ cat > ~/.config/labwc/autostart <<'AUTOSTART'
 until curl -sf http://127.0.0.1:8765/api/state >/dev/null; do
   sleep 1
 done
-chromium --kiosk --noerrdialogs --disable-infobars --disable-features=Translate --no-first-run --check-for-update-interval=31536000 http://127.0.0.1:8765 &
+chromium --kiosk --noerrdialogs --disable-infobars --disable-features=Translate --no-first-run --check-for-update-interval=31536000 --password-store=basic --use-mock-keychain --disable-pinch --overscroll-history-navigation=0 http://127.0.0.1:8765 &
 AUTOSTART
 
 chmod +x ~/.config/labwc/autostart
