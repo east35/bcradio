@@ -1,0 +1,343 @@
+@font-face {
+    font-family: "Chicago Kare";
+    src: url("/assets/font/ChicagoKare-Regular.ttf") format("truetype");
+    font-weight: 400;
+}
+
+:root {
+    color-scheme: light dark;
+    font-family: "Chicago Kare", system-ui, sans-serif;
+    background: #111;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #101010;
+}
+
+.screen {
+    position: relative;
+    width: min(100vw, 800px);
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    color: var(--ink);
+    background: var(--lcd);
+    letter-spacing: 0;
+    container-type: inline-size;
+}
+
+.screen.light {
+    --ink: #171717;
+    --lcd: #c8c8c8;
+    text-shadow: 0 4px 2px rgba(0, 0, 0, 0.16);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.48);
+}
+
+.screen.dark {
+    --ink: #e4e4e4;
+    --lcd: #222222;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.bezel-shadow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* ---- Idle clock ---- */
+.clock {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 120px;
+    line-height: 1;
+    text-align: center;
+}
+
+/* ---- Station select ---- */
+.station-select {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.station-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    transform-origin: left center;
+    transition: transform 320ms ease;
+    will-change: transform;
+    translate: 0 -50%;
+}
+
+.station-item {
+    font-size: 120px;
+    line-height: 1;
+    white-space: nowrap;
+    transition: opacity 320ms ease;
+}
+
+/* ---- No connection / error ---- */
+.no-connection {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+
+.no-connection img {
+    width: 129px;
+    height: auto;
+    display: block;
+}
+
+.screen.dark .no-connection img {
+    filter: invert(89%);
+}
+
+/* ---- Playback ---- */
+.playback {
+    position: absolute;
+    inset: 0;
+}
+
+.pb-top {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    right: 32px;
+    height: 28px;
+    font-size: 16pt;
+    font-weight: 400;
+}
+
+.pb-meta {
+    position: absolute;
+    left: 0;
+    right: 44px;
+    top: 0;
+    bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 28px;
+}
+
+.pb-status-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 24px;
+    height: 28px;
+}
+
+.screen.dark .pb-status-icon,
+.screen.dark .no-connection img {
+    filter: invert(89%);
+}
+
+.pb-middle {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    top: 92px;
+    height: 250px;
+}
+
+.pb-art {
+    position: absolute;
+    left: 0;
+    top: 30px;
+    width: 190px;
+    height: 190px;
+}
+
+.pb-art img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    image-rendering: pixelated;
+    filter: grayscale(1);
+}
+
+.pb-art-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    filter: none;
+}
+
+.pb-track {
+    position: absolute;
+    left: 222px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    overflow: hidden;
+}
+
+.pb-title {
+    width: 100%;
+    font-size: 68px;
+    line-height: 0.85;
+    max-height: calc(68px * 1.05 * 2);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.pb-artist {
+    width: 100%;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pb-bottom {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    bottom: 24px;
+    height: 24pt;
+    font-size: 16pt;
+    font-weight: 400;
+}
+
+.pb-counter {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    text-align: left;
+    line-height: 1;
+}
+
+.pb-elapsed {
+    position: absolute;
+    left: 72px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 64px;
+    text-align: left;
+    line-height: 1;
+}
+
+.pb-duration {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 64px;
+    text-align: right;
+    line-height: 1;
+}
+
+.pb-progress {
+    position: absolute;
+    left: 152px;
+    right: 80px;
+    bottom: 0;
+    height: 24pt;
+}
+
+.pb-progress-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2px;
+    background: currentColor;
+}
+
+.pb-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: currentColor;
+}
+
+.pb-progress-tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: currentColor;
+    transform: translateX(-1px);
+}
+
+.pb-progress-line-left,
+.pb-progress-line-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2px;
+    background: currentColor;
+}
+
+.pb-progress-line-left {
+    left: 0;
+}
+
+.pb-progress-line-right {
+    right: 0;
+}
+
+/* ---- Volume overlay ---- */
+.volume-toast {
+    position: absolute;
+    left: 50%;
+    bottom: 36px;
+    transform: translateX(-50%);
+    width: min(76%, 520px);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    color: var(--lcd);
+    background: var(--ink);
+    z-index: 4;
+    font-size: 20pt;
+}
+
+.volume-toast div {
+    height: 14px;
+    border: 2px solid currentColor;
+    padding: 2px;
+}
+
+.volume-toast i {
+    display: block;
+    height: 100%;
+    background: currentColor;
+}

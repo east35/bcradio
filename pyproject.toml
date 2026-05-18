@@ -1,0 +1,32 @@
+[project]
+name = "bc-radio"
+version = "0.1.0"
+description = "Bandcamp Radio Raspberry Pi kiosk prototype"
+requires-python = ">=3.11"
+dependencies = [
+  "aiohttp>=3.9",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "pytest-asyncio>=0.23",
+]
+
+[project.scripts]
+bc-radio = "bcradio.server:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "backend"}
+
+[tool.setuptools.packages.find]
+where = ["backend"]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend"]
+testpaths = ["tests"]
+asyncio_mode = "auto"

@@ -1,0 +1,17 @@
+[Unit]
+Description=Bandcamp Radio Radio backend
+After=network-online.target bc-radio-mpv.service
+Wants=network-online.target
+Requires=bc-radio-mpv.service
+
+[Service]
+WorkingDirectory=/home/pi/bc-radio
+Environment=PYTHONPATH=/home/pi/bc-radio/backend
+Environment=BC_RADIO_ALLOW_SHUTDOWN=1
+Environment=BC_RADIO_DIST=/home/pi/bc-radio/dist
+ExecStart=/home/pi/bc-radio/.venv/bin/python -m bcradio.server
+Restart=on-failure
+User=pi
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+[Unit]
+Description=Bandcamp Radio Radio kiosk browser
+After=bc-radio.service graphical.target
+Wants=bc-radio.service
+
+[Service]
+Environment=DISPLAY=:0
+ExecStartPre=/bin/sleep 5
+ExecStart=/usr/bin/chromium \
+  --kiosk \
+  --noerrdialogs \
+  --disable-infobars \
+  --disable-features=Translate \
+  --disable-pinch \
+  --overscroll-history-navigation=0 \
+  --no-first-run \
+  --check-for-update-interval=31536000 \
+  --start-fullscreen \
+  http://127.0.0.1:8765
+Restart=on-failure
+User=pi
+
+[Install]
+WantedBy=graphical.target

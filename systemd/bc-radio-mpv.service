@@ -1,0 +1,12 @@
+[Unit]
+Description=mpv IPC daemon for bc-radio
+After=sound.target
+
+[Service]
+ExecStartPre=/bin/rm -f /tmp/bc-radio-mpv.sock
+ExecStart=/usr/bin/mpv --idle=yes --no-video --input-ipc-server=/tmp/bc-radio-mpv.sock --no-terminal
+Restart=on-failure
+User=pi
+
+[Install]
+WantedBy=multi-user.target
