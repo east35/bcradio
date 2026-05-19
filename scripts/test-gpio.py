@@ -26,7 +26,7 @@ def log(label: str, msg: str) -> None:
 
 
 # Pin map — change here if you wired differently.
-TUNING_A, TUNING_B, TUNING_SW = 23, 24, 25
+TUNING_A, TUNING_B, TUNING_SW = 23, 16, 25
 VOLUME_A, VOLUME_B, VOLUME_SW = 5, 6, 13
 POWER_BTN = 26
 
