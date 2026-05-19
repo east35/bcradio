@@ -7,6 +7,7 @@
 #define VOLUME_A  7
 #define VOLUME_B  8
 #define VOLUME_SW 9
+#define SLEEP_BTN 6
 
 // Debounce time for push buttons (ms)
 #define DEBOUNCE_MS 50
@@ -35,6 +36,7 @@ void setup() {
   pinMode(VOLUME_A,  INPUT_PULLUP);
   pinMode(VOLUME_B,  INPUT_PULLUP);
   pinMode(VOLUME_SW, INPUT_PULLUP);
+  pinMode(SLEEP_BTN, INPUT_PULLUP);
 
   attachInterrupt(digitalPinToInterrupt(TUNING_A), tuningISR, CHANGE);
   attachInterrupt(digitalPinToInterrupt(VOLUME_A), volumeISR, CHANGE);
@@ -88,6 +90,16 @@ void loop() {
     volumePressTime = millis();
   }
   volumeWasPressed = volumePressed;
+
+  // Sleep button
+  static bool sleepWasPressed = false;
+  static unsigned long sleepPressTime = 0;
+  bool sleepPressed = digitalRead(SLEEP_BTN) == LOW;
+  if (sleepPressed && !sleepWasPressed && millis() - sleepPressTime > DEBOUNCE_MS) {
+    sendKey('p');
+    sleepPressTime = millis();
+  }
+  sleepWasPressed = sleepPressed;
 
   delay(1);
 }

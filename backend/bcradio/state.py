@@ -221,14 +221,8 @@ class RadioController:
             self.state.playbackStatus = PlaybackStatus.PLAYING
 
     async def soft_off(self) -> None:
-        self.state.mode = Mode.SOFT_OFF_PENDING
-        self.state.playbackStatus = PlaybackStatus.FADING_OUT
-        await self.publish()
-        await self.player.fade_to(0, self.settings.fade_seconds)
-        await self.player.stop()
-        self.track_positions.clear()
-        self.state.mode = Mode.OFF
-        self.state.playbackStatus = PlaybackStatus.STOPPED
+        await self.player.pause()
+        self.state.playbackStatus = PlaybackStatus.PAUSED
         await self.publish()
         await self.shutdown()
 

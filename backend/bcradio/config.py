@@ -15,6 +15,6 @@ class Settings:
     mpv_socket: Path = Path("/tmp/bc-radio-mpv.sock")
     fade_seconds: float = 0.5
     cache_ttl_seconds: int = 3600
-    shutdown_command: tuple[str, ...] = ("sudo", "shutdown", "-h", "now")
+    shutdown_command: tuple[str, ...] = ("sudo", "systemctl", "suspend")
     allow_shutdown: bool = False
 

@@ -25,7 +25,7 @@ Open `http://127.0.0.1:5173`. Keyboard simulation:
 - Enter: tuning knob push
 - Up/Down: volume knob
 - Space: play/pause
-- P: soft off
+- P: pause and suspend
 
 ## mpv
 
